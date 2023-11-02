@@ -552,33 +552,7 @@ c:\kubernetis\vagrant-kubeadm-kubernetes>vagrant ssh master
 ```
 Welcome to Ubuntu 22.04.3 LTS (GNU/Linux 5.15.0-83-generic x86_64)
 ```
-### VSCode 확장연결
-![1698901610067](image/1조윤석현/1698901610067.png)
-### 시크릿 생성 및 확인
-#### 시크릿 생성 예시(없을 경우)
-```
-vagrant@master-node:~$ kubectl create secret docker-registry regcred --docker-server=https://index.docker.io/v1/ --docker-username=****** --docker-password=****** --docker-email=******
-```
-#### 생성된 시크릿 내용 조회
-```
-vagrant@master-node:~$ kubectl get secret regcred --output=yaml
-apiVersion: v1
-data:
-  .dockerconfigjson: eyJhdXRocyI6eyJodHRwczovL2luZGV4LmRvY2tlci5pby92MS8iOnsidXNlcm5hbWUiOiJteWFuamluaSIsInBhc3N3b3JkIjoiQGN3bnU5MjE4IiwiZW1haWwiOiJteWFuamluaUBnbWFpbC5jb20iLCJhdXRoIjoiYlhsaGJtcHBibWs2UUdOM2JuVTVNakU0In19fQ==
-kind: Secret
-metadata:
-  creationTimestamp: "2023-10-06T02:20:17Z"
-  name: regcred
-  namespace: default
-  resourceVersion: "94204"
-  uid: 17919b56-c624-4a43-84fa-3eb551b0b2cc
-type: kubernetes.io/dockerconfigjson
-```
-#### 암호화된 시크릿 복호화
-```
-vagrant@master-node:~$ kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
-{"auths":{"https://index.docker.io/v1/":{"username":"myanjini","password":"*****","email":"myanjini@gmail.com","auth":"bXlhbmppbmk6QGN3bnU5MjE4"}}}
-```
+
 ## mysql-deployment.yaml 파일 작성
 /home/vagrant/mysql-deployment.yaml
 ```yaml
