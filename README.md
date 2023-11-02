@@ -372,16 +372,17 @@ C:\Users\User\Desktop\miniProjectBack>docker image build -t flask:2.0 -f Dockerf
 ### React Dockerfile 작성
 C:\miniProjectBack\Dockerfile
 ```Dockerfile
-FROM python:3.11
-RUN apt-get update && apt-get install -y cron
-WORKDIR /app
-COPY . .
-RUN pip install jwt
-RUN pip install --no-cache-dir -r requirements.txt
-#COPY crontabFile /etc/cron.d/cronfile
-#RUN chmod 0644 /etc/cron.d/cronfile
-RUN crontab -l | { cat; echo "* * * * * /usr/local/bin/python /app/historyUpdate.py >> /var/log/cron.log 2>&1"; } | crontab -
-CMD ["sh", "-c", "cron && python app.py"]
+FROM    node AS builder
+RUN     mkdir /my-app
+WORKDIR /my-app
+COPY    . .
+RUN     npm install
+RUN     npm run build
+
+
+FROM    nginx AS runtime
+COPY    --from=builder /my-app/build/ /usr/share/nginx/html/
+CMD     ["nginx", "-g", "daemon off;"]
 ```
 
 ### 작성한 Dockerfile로 React 이미지 빌드
