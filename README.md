@@ -85,7 +85,7 @@
 ```
 
 - `JWT`을 만들어서 로그인 정보 있을 시 `localStorage`에 저장 -
-  - 이 방법은 보안 상 취약 -> Access Token을 유효 기간을 짧게 설정하고,  만료되면 Refresh Token을 발급받도록 하는 방식으로 개선 가
+  - 이 방법은 보안 상 취약 -> Access Token을 유효 기간을 짧게 설정하고,  만료되면 Refresh Token을 발급받도록 하는 방식으로 개선 가능
 
 ```python
 from flask_jwt_extended import JWTManager
@@ -113,6 +113,7 @@ def login():
 ``` 
 - 백그라운드에서 주기적으로 실행되는 자동화 작업
 - 매분 매초에 crontab을 실행하며 경매 내역에 있는 데이터의 만료시간이 현재시간을 지났을 경우 history(낙찰 테이블)에 자동으로 넣는 python 파일 실행한다. 
+-  :collision:
     - frontend에서도 현재시간을 지났으면 낙찰 못하게 버튼 비활성화하게 개선 가능 
  
 ``` docker
